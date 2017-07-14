@@ -5,6 +5,7 @@ import android.util.Log;
 import java.util.List;
 
 import io.reactivex.Observable;
+import io.reactivex.Single;
 import io.reactivex.functions.Consumer;
 import perso.renaud.com.myfirstrxapp.data.api_objects.JSPost;
 import perso.renaud.com.myfirstrxapp.network.Api;
@@ -29,12 +30,12 @@ public class PostRepositoryImpl implements PostRepository {
 
 
     @Override
-    public Observable<JSPost> get(int id) {
+    public Single<JSPost> get(int id) {
         return null;
     }
 
     @Override
-    public Observable<List<JSPost>> getAll() {
+    public Single<List<JSPost>> getAll() {
 
         Log.i(TAG, "getAll()");
 
@@ -46,10 +47,9 @@ public class PostRepositoryImpl implements PostRepository {
             }
         }));
 
-        obs.firstOrError();
+        return obs.firstOrError();
 
 
-        return obs;
     }
 
 

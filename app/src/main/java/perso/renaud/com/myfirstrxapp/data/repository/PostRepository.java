@@ -2,7 +2,7 @@ package perso.renaud.com.myfirstrxapp.data.repository;
 
 import java.util.List;
 
-import io.reactivex.Observable;
+import io.reactivex.Single;
 import perso.renaud.com.myfirstrxapp.data.api_objects.JSPost;
 
 /**
@@ -11,8 +11,8 @@ import perso.renaud.com.myfirstrxapp.data.api_objects.JSPost;
 
 public interface PostRepository {
 
-    Observable<JSPost> get(int id);
+    Single<JSPost> get(int id);
 
-    Observable<List<JSPost>> getAll();
+    Single<List<JSPost>> getAll();
 
 }

@@ -11,7 +11,7 @@ import perso.renaud.com.myfirstrxapp.network.Api;
  */
 
 
-public class PostNetworkRepository implements PostRepository {
+public class PostNetworkRepository {
 
 
     private final Api.JsonPlaceholderInterface jsonPlaceholder;
@@ -21,12 +21,11 @@ public class PostNetworkRepository implements PostRepository {
         this.jsonPlaceholder = jsonPlaceholder;
     }
 
-    @Override
+
     public Observable<JSPost> get(int id) {
         return jsonPlaceholder.post(id);
     }
 
-    @Override
     public Observable<List<JSPost>> getAll() {
         Observable<List<JSPost>> obs = jsonPlaceholder.posts();
         return obs;

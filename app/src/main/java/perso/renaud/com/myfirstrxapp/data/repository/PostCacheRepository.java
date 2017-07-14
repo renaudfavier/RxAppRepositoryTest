@@ -15,13 +15,12 @@ import perso.renaud.com.myfirstrxapp.data.helper.Ephemerical;
  * Created by renaud on 14/03/17.
  */
 
-public class PostCacheRepository implements PostRepository {
+public class PostCacheRepository {
 
     public static final String TAG = "PostCacheRepository";
 
     HashMap<Integer, Ephemerical<JSPost>> cacheMap = new HashMap<>();
 
-    @Override
     public Observable<JSPost> get(int id) {
         if (cacheMap.containsKey(id)) {
             Ephemerical<JSPost> post = cacheMap.get(id);
@@ -46,7 +45,6 @@ public class PostCacheRepository implements PostRepository {
         }
     }
 
-    @Override
     public Observable<List<JSPost>> getAll() {
         buryDeads();
         List<JSPost> jsPosts = new ArrayList<>();

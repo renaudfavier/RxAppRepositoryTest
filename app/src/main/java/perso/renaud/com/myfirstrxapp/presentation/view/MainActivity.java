@@ -13,9 +13,10 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.observers.DisposableObserver;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import perso.renaud.com.myfirstrxapp.R;
 import perso.renaud.com.myfirstrxapp.ancestors.MyActivity;
@@ -57,30 +58,26 @@ public class MainActivity extends MyActivity {
             @Override
             public void onClick(View v) {
                 postRepository.getAll().subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribeWith(new DisposableObserver<List<JSPost>>() {
+                        .observeOn(AndroidSchedulers.mainThread()).subscribeWith(new SingleObserver<List<JSPost>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
 
-                            @Override
-                            public void onNext(List<JSPost> posts) {
+                    }
 
+                    @Override
+                    public void onSuccess(List<JSPost> posts) {
+                        i++;
+                        counterTextView.setText("" + i);
 
-                                i++;
-                                counterTextView.setText("" + i);
+                        Log.i(TAG, "onNext, size : " + posts.size());
+                        adapter.updateData(posts);
+                    }
 
-                                Log.i(TAG, "onNext, size : " + posts.size());
-                                adapter.updateData(posts);
-                            }
+                    @Override
+                    public void onError(Throwable e) {
 
-                            @Override
-                            public void onError(Throwable e) {
-
-                            }
-
-                            @Override
-                            public void onComplete() {
-
-                            }
-                        });
+                    }
+                });
             }
         });
 
