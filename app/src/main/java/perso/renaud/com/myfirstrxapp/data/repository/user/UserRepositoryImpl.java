@@ -1,5 +1,8 @@
 package perso.renaud.com.myfirstrxapp.data.repository.user;
 
+import java.util.List;
+
+import io.reactivex.Observable;
 import perso.renaud.com.myfirstrxapp.data.api_objects.JSUser;
 import perso.renaud.com.myfirstrxapp.data.repository.base_class.RepositoryImpl;
 import perso.renaud.com.myfirstrxapp.network.Api;
@@ -12,11 +15,21 @@ public class UserRepositoryImpl extends RepositoryImpl<JSUser> {
 
     private static volatile UserRepositoryImpl instance;
 
-    public static UserRepositoryImpl getInstance(Api.StandardRest<JSUser> jsonPlaceholder) {
+    public static UserRepositoryImpl getInstance(final Api.JsonPlaceholderInterface jsonPlaceholderInterface) {
 
         synchronized (Api.class) {
             if (instance == null) {
-                instance = new UserRepositoryImpl(jsonPlaceholder);
+                instance = new UserRepositoryImpl(new Api.StandardRest<JSUser>() {
+                    @Override
+                    public Observable<List<JSUser>> getAll() {
+                        return jsonPlaceholderInterface.users();
+                    }
+
+                    @Override
+                    public Observable<JSUser> get(long id) {
+                        return jsonPlaceholderInterface.user(id);
+                    }
+                });
             }
             return instance;
         }
