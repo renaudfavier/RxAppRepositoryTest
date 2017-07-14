@@ -1,4 +1,4 @@
-package perso.renaud.com.myfirstrxapp.presentation.view;
+package perso.renaud.com.myfirstrxapp.presentation.posts_list.view;
 
 
 import android.os.Bundle;

@@ -31,7 +31,18 @@ public class PostRepositoryImpl implements PostRepository {
 
     @Override
     public Single<JSPost> get(int id) {
-        return null;
+
+        Log.i(TAG, "get(" + id + ")");
+
+
+        Observable<JSPost> obs = Observable.concat(cacheRepository.get(id), networkRepository.get(id).doOnNext(new Consumer<JSPost>() {
+            @Override
+            public void accept(JSPost jsPost) throws Exception {
+                cacheRepository.store(jsPost);
+            }
+        }));
+
+        return obs.firstOrError();
     }
 
     @Override

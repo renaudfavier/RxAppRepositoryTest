@@ -1,4 +1,4 @@
-package perso.renaud.com.myfirstrxapp.presentation.view;
+package perso.renaud.com.myfirstrxapp.presentation.posts_list.view;
 
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -24,7 +24,8 @@ import perso.renaud.com.myfirstrxapp.data.api_objects.JSPost;
 import perso.renaud.com.myfirstrxapp.data.repository.PostRepository;
 import perso.renaud.com.myfirstrxapp.data.repository.PostRepositoryImpl;
 import perso.renaud.com.myfirstrxapp.network.Api;
-import perso.renaud.com.myfirstrxapp.presentation.model.viewholders.PostViewHolder;
+import perso.renaud.com.myfirstrxapp.presentation.post_detail.PostDetailActivity;
+import perso.renaud.com.myfirstrxapp.presentation.posts_list.viewholders.PostViewHolder;
 
 public class MainActivity extends MyActivity {
 
@@ -112,12 +113,19 @@ public class MainActivity extends MyActivity {
 
         @Override
         public void onBindViewHolder(PostViewHolder holder, int position) {
-            JSPost post = dataset.get(position);
+            final JSPost post = dataset.get(position);
             //Log.i("renaud", "post == null ? => " + (post == null) + "\n" + post.toLog());
             holder.postId.setText(String.valueOf(post.id));
             holder.userId.setText(String.valueOf(post.userId));
             holder.title.setText(post.title);
             holder.body.setText(post.body);
+
+            holder.container.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivity(PostDetailActivity.newInstant(MainActivity.this, post.id));
+                }
+            });
         }
 
         @Override

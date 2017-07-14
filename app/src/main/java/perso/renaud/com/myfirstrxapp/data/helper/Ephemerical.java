@@ -13,7 +13,7 @@ public class Ephemerical<T> {
 
     public static final String TAG = "Ephemerical";
 
-    public final static long PERRISHMENT_TIME_IN_MILLIS = 1000 * 5;
+    public final static long PERRISHMENT_TIME_IN_MILLIS = 1000 * 50;
 
     private final T value;
     private final Date deathDate;
