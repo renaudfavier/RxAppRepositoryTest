@@ -21,15 +21,15 @@ import io.reactivex.schedulers.Schedulers;
 import perso.renaud.com.myfirstrxapp.R;
 import perso.renaud.com.myfirstrxapp.ancestors.MyActivity;
 import perso.renaud.com.myfirstrxapp.data.api_objects.JSPost;
-import perso.renaud.com.myfirstrxapp.data.repository.PostRepository;
-import perso.renaud.com.myfirstrxapp.data.repository.PostRepositoryImpl;
+import perso.renaud.com.myfirstrxapp.data.repository.post.PostRepository;
+import perso.renaud.com.myfirstrxapp.data.repository.post.PostRepositoryImpl;
 import perso.renaud.com.myfirstrxapp.network.Api;
 import perso.renaud.com.myfirstrxapp.presentation.post_detail.PostDetailActivity;
 import perso.renaud.com.myfirstrxapp.presentation.posts_list.viewholders.PostViewHolder;
 
-public class MainActivity extends MyActivity {
+public class PostListActivity extends MyActivity {
 
-    private final String TAG = "MainActivity";
+    private final String TAG = "PostListActivity";
     CompositeDisposable disposables = new CompositeDisposable();
     private RecyclerView recyclerView;
     private PostRecyclerAdapter adapter;
@@ -70,7 +70,6 @@ public class MainActivity extends MyActivity {
                         i++;
                         counterTextView.setText("" + i);
 
-                        Log.i(TAG, "onNext, size : " + posts.size());
                         adapter.updateData(posts);
                     }
 
@@ -123,7 +122,7 @@ public class MainActivity extends MyActivity {
             holder.container.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    startActivity(PostDetailActivity.newInstant(MainActivity.this, post.id));
+                    startActivity(PostDetailActivity.newInstant(PostListActivity.this, post.id));
                 }
             });
         }

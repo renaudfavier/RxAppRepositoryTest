@@ -1,6 +1,4 @@
-package perso.renaud.com.myfirstrxapp.data.repository;
-
-import android.util.Log;
+package perso.renaud.com.myfirstrxapp.data.repository.post;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,7 +13,7 @@ import perso.renaud.com.myfirstrxapp.data.helper.Ephemerical;
  * Created by renaud on 14/03/17.
  */
 
-public class PostCacheRepository {
+class PostCacheRepository {
 
     public static final String TAG = "PostCacheRepository";
 
@@ -23,21 +21,15 @@ public class PostCacheRepository {
 
     public Observable<JSPost> get(int id) {
 
-        Log.e(TAG, "getting from cache : " + id);
-        Log.e(TAG, "getting from cache : " + cacheMap.size());
-
         if (cacheMap.containsKey(id)) {
             Ephemerical<JSPost> post = cacheMap.get(id);
             if (post.isAlive()) {
-                Log.i(TAG, "foundInCache");
                 return Observable.just(post.get());
             } else {
-                Log.i(TAG, "aint alive");
                 cacheMap.remove(id);
             }
         }
 
-        Log.i(TAG, "returning empty");
         return Observable.empty();
     }
 
@@ -46,21 +38,19 @@ public class PostCacheRepository {
         while (iterator.hasNext()) {
             Ephemerical<JSPost> post = iterator.next();
             if (!post.isAlive()) {
-                Log.w(TAG, "removing " + post.get().id);
                 iterator.remove();
-                //cacheMap.remove(post.get().id);
             }
         }
     }
 
     public Observable<List<JSPost>> getAll() {
+
         buryDeads();
+
         List<JSPost> jsPosts = new ArrayList<>();
         for (Ephemerical<JSPost> post : cacheMap.values()) {
             jsPosts.add(post.get());
         }
-
-        Log.i(TAG, "cache getAll() size : " + jsPosts.size());
 
         if (jsPosts.isEmpty()) {
             return Observable.empty();
@@ -72,8 +62,6 @@ public class PostCacheRepository {
 
     public void store(JSPost post) {
         cacheMap.put(post.id, new Ephemerical<>(post));
-        Log.i(TAG, "stored " + post.id);
-
     }
 
 

@@ -63,9 +63,6 @@ public class Api {
 
     public interface JsonPlaceholderInterface {
 
-        //@POST("/api/tokens")
-        //Call<TokenResponse> postAuth(@Body AuthJWT args);
-
         @GET("/posts")
         Observable<List<JSPost>> posts();
 

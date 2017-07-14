@@ -1,4 +1,4 @@
-package perso.renaud.com.myfirstrxapp.data.repository;
+package perso.renaud.com.myfirstrxapp.data.repository.post;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ import perso.renaud.com.myfirstrxapp.network.Api;
  */
 
 
-public class PostNetworkRepository {
+class PostNetworkRepository {
 
 
     private final Api.JsonPlaceholderInterface jsonPlaceholder;

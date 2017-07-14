@@ -1,6 +1,4 @@
-package perso.renaud.com.myfirstrxapp.data.repository;
-
-import android.util.Log;
+package perso.renaud.com.myfirstrxapp.data.repository.post;
 
 import java.util.List;
 
@@ -16,6 +14,7 @@ import perso.renaud.com.myfirstrxapp.network.Api;
 
 public class PostRepositoryImpl implements PostRepository {
 
+    public static final String TAG = "PostRepositoryImpl";
 
     private static volatile PostRepositoryImpl instance;
 
@@ -29,9 +28,6 @@ public class PostRepositoryImpl implements PostRepository {
         }
     }
 
-
-    public static final String TAG = "PostRepositoryImpl";
-
     private final PostCacheRepository cacheRepository;
     private final PostNetworkRepository networkRepository;
 
@@ -43,9 +39,6 @@ public class PostRepositoryImpl implements PostRepository {
 
     @Override
     public Single<JSPost> get(int id) {
-
-        Log.i(TAG, "get(" + id + ")");
-
 
         Observable<JSPost> obs = Observable.concat(cacheRepository.get(id), networkRepository.get(id).doOnNext(new Consumer<JSPost>() {
             @Override
@@ -60,9 +53,6 @@ public class PostRepositoryImpl implements PostRepository {
     @Override
     public Single<List<JSPost>> getAll() {
 
-        Log.i(TAG, "getAll()");
-
-
         Observable<List<JSPost>> obs = Observable.concat(cacheRepository.getAll(), networkRepository.getAll().doOnNext(new Consumer<List<JSPost>>() {
             @Override
             public void accept(List<JSPost> jsPosts) throws Exception {
@@ -72,8 +62,6 @@ public class PostRepositoryImpl implements PostRepository {
 
         return obs.firstOrError();
 
-
     }
-
 
 }

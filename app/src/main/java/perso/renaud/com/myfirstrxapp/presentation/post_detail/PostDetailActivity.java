@@ -11,8 +11,8 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import perso.renaud.com.myfirstrxapp.R;
 import perso.renaud.com.myfirstrxapp.data.api_objects.JSPost;
-import perso.renaud.com.myfirstrxapp.data.repository.PostRepository;
-import perso.renaud.com.myfirstrxapp.data.repository.PostRepositoryImpl;
+import perso.renaud.com.myfirstrxapp.data.repository.post.PostRepository;
+import perso.renaud.com.myfirstrxapp.data.repository.post.PostRepositoryImpl;
 import perso.renaud.com.myfirstrxapp.network.Api;
 import perso.renaud.com.myfirstrxapp.presentation.posts_list.viewholders.PostViewHolder;
 
@@ -31,7 +31,7 @@ public class PostDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_detail);
 
-        int postId = getIntent().getExtras().getInt(EXTRA_POST_ID);
+        final int postId = getIntent().getExtras().getInt(EXTRA_POST_ID);
         final PostViewHolder holder = new PostViewHolder(findViewById(R.id.item));
 
         final Api.JsonPlaceholderInterface jsonPlaceHolder = Api.getInstance().jsonPlaceholder;
@@ -46,9 +46,12 @@ public class PostDetailActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onSuccess(JSPost posts) {
+            public void onSuccess(JSPost post) {
 
-                holder.body.setText(posts.body);
+                holder.postId.setText(String.valueOf(post.id));
+                holder.userId.setText(String.valueOf(post.userId));
+                holder.title.setText(post.title);
+                holder.body.setText(post.body);
 
             }
 
