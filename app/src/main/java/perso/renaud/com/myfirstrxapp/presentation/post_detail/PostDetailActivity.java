@@ -35,7 +35,8 @@ public class PostDetailActivity extends AppCompatActivity {
         final PostViewHolder holder = new PostViewHolder(findViewById(R.id.item));
 
         final Api.JsonPlaceholderInterface jsonPlaceHolder = Api.getInstance().jsonPlaceholder;
-        final PostRepository postRepository = new PostRepositoryImpl(jsonPlaceHolder);
+
+        final PostRepository postRepository = PostRepositoryImpl.getInstance(jsonPlaceHolder);
 
         postRepository.get(postId).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribeWith(new SingleObserver<JSPost>() {

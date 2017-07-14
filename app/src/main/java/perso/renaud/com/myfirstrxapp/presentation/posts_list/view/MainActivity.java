@@ -52,7 +52,7 @@ public class MainActivity extends MyActivity {
         counterTextView = (TextView) findViewById(R.id.counter);
 
         final Api.JsonPlaceholderInterface jsonPlaceHolder = Api.getInstance().jsonPlaceholder;
-        final PostRepository postRepository = new PostRepositoryImpl(jsonPlaceHolder);
+        final PostRepository postRepository = PostRepositoryImpl.getInstance(jsonPlaceHolder);
 
 
         refreshButton.setOnClickListener(new View.OnClickListener() {

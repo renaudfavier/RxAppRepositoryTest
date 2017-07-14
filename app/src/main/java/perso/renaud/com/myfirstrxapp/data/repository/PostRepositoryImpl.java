@@ -16,17 +16,29 @@ import perso.renaud.com.myfirstrxapp.network.Api;
 
 public class PostRepositoryImpl implements PostRepository {
 
+
+    private static volatile PostRepositoryImpl instance;
+
+    public static PostRepositoryImpl getInstance(Api.JsonPlaceholderInterface jsonPlaceholder) {
+
+        synchronized (Api.class) {
+            if (instance == null) {
+                instance = new PostRepositoryImpl(jsonPlaceholder);
+            }
+            return instance;
+        }
+    }
+
+
     public static final String TAG = "PostRepositoryImpl";
 
     private final PostCacheRepository cacheRepository;
     private final PostNetworkRepository networkRepository;
 
-    public PostRepositoryImpl(Api.JsonPlaceholderInterface jsonPlaceholder) {
+    private PostRepositoryImpl(Api.JsonPlaceholderInterface jsonPlaceholder) {
         cacheRepository = new PostCacheRepository();
         networkRepository = new PostNetworkRepository(jsonPlaceholder);
     }
-
-    //Observable<JSPost> obs = Observable.concat(cacheRepository.get(id), networkRepository.get(id));
 
 
     @Override

@@ -22,14 +22,22 @@ public class PostCacheRepository {
     HashMap<Integer, Ephemerical<JSPost>> cacheMap = new HashMap<>();
 
     public Observable<JSPost> get(int id) {
+
+        Log.e(TAG, "getting from cache : " + id);
+        Log.e(TAG, "getting from cache : " + cacheMap.size());
+
         if (cacheMap.containsKey(id)) {
             Ephemerical<JSPost> post = cacheMap.get(id);
             if (post.isAlive()) {
+                Log.i(TAG, "foundInCache");
                 return Observable.just(post.get());
             } else {
+                Log.i(TAG, "aint alive");
                 cacheMap.remove(id);
             }
         }
+
+        Log.i(TAG, "returning empty");
         return Observable.empty();
     }
 
