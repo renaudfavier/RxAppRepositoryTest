@@ -63,6 +63,7 @@ public class MainActivity extends MyActivity {
                             @Override
                             public void onNext(List<JSPost> posts) {
 
+
                                 i++;
                                 counterTextView.setText("" + i);
 

@@ -4,6 +4,7 @@ import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 import io.reactivex.Observable;
@@ -30,14 +31,17 @@ public class PostCacheRepository implements PostRepository {
                 cacheMap.remove(id);
             }
         }
-        return null;
+        return Observable.empty();
     }
 
     public void buryDeads() {
-        for (Ephemerical<JSPost> post : cacheMap.values()) {
+        Iterator<Ephemerical<JSPost>> iterator = cacheMap.values().iterator();
+        while (iterator.hasNext()) {
+            Ephemerical<JSPost> post = iterator.next();
             if (!post.isAlive()) {
                 Log.w(TAG, "removing " + post.get().id);
-                cacheMap.remove(post.get().id);
+                iterator.remove();
+                //cacheMap.remove(post.get().id);
             }
         }
     }
@@ -51,6 +55,10 @@ public class PostCacheRepository implements PostRepository {
         }
 
         Log.i(TAG, "cache getAll() size : " + jsPosts.size());
+
+        if (jsPosts.isEmpty()) {
+            return Observable.empty();
+        }
 
         return Observable.just(jsPosts);
     }

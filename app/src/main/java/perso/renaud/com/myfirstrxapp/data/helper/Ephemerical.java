@@ -1,5 +1,7 @@
 package perso.renaud.com.myfirstrxapp.data.helper;
 
+import android.util.Log;
+
 import java.util.Calendar;
 import java.util.Date;
 
@@ -11,7 +13,7 @@ public class Ephemerical<T> {
 
     public static final String TAG = "Ephemerical";
 
-    public final static long PERRISHMENT_TIME_IN_MILLIS = 1000 * 20;
+    public final static long PERRISHMENT_TIME_IN_MILLIS = 1000 * 5;
 
     private final T value;
     private final Date deathDate;
@@ -20,19 +22,27 @@ public class Ephemerical<T> {
     public Ephemerical(T value) {
         calendar = Calendar.getInstance();
         this.value = value;
-        deathDate = new Date(calendar.getTimeInMillis() + PERRISHMENT_TIME_IN_MILLIS);
+
+        long timeiInMillis = calendar.getTimeInMillis();
+        deathDate = new Date(timeiInMillis + PERRISHMENT_TIME_IN_MILLIS);
+
+        Log.e(TAG, "create Ephemerica " + timeiInMillis);
     }
 
 
     public boolean isAlive() {
 
-        return calendar.getTime().before(deathDate);
+
+        boolean isAlive = Calendar.getInstance().getTime().before(deathDate);
+
+        Log.e(TAG, "is Ephemerica alive" + isAlive + " time : " + Calendar.getInstance().getTimeInMillis());
+        return isAlive;
+
     }
 
     public T get() {
         return value;
     }
-
 
 
 }
