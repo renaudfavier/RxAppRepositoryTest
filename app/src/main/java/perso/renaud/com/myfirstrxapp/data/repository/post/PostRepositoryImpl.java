@@ -14,7 +14,7 @@ import perso.renaud.com.myfirstrxapp.network.Api;
 
 public class PostRepositoryImpl implements PostRepository {
 
-    public static final String TAG = "PostRepositoryImpl";
+    public static final String TAG = "RepositoryImpl";
 
     private static volatile PostRepositoryImpl instance;
 

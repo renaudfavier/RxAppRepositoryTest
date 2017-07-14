@@ -2,11 +2,13 @@ package perso.renaud.com.myfirstrxapp.data.api_objects;
 
 import com.google.gson.annotations.SerializedName;
 
+import perso.renaud.com.myfirstrxapp.data.repository.base_class.PrimaryKeyObject;
+
 /**
  * Created by renaud on 14/03/17.
  */
 
-public class JSPost {
+public class JSPost implements PrimaryKeyObject{
 
     @SerializedName("userId")
     public int userId;
@@ -29,4 +31,8 @@ public class JSPost {
         return sb.toString();
     }
 
+    @Override
+    public int getPrimaryKey() {
+        return id;
+    }
 }

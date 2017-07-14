@@ -57,7 +57,13 @@ public class Api {
 
         jsonPlaceholder = retrofit.create(JsonPlaceholderInterface.class);
 
+    }
 
+
+    public interface StandardRest<T> {
+        Observable<List<T>> getAll();
+
+        Observable<T> get(long id);
     }
 
 

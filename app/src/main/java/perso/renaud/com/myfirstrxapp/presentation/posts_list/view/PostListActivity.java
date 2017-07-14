@@ -3,7 +3,6 @@ package perso.renaud.com.myfirstrxapp.presentation.posts_list.view;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +12,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.Observable;
 import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -21,8 +21,8 @@ import io.reactivex.schedulers.Schedulers;
 import perso.renaud.com.myfirstrxapp.R;
 import perso.renaud.com.myfirstrxapp.ancestors.MyActivity;
 import perso.renaud.com.myfirstrxapp.data.api_objects.JSPost;
-import perso.renaud.com.myfirstrxapp.data.repository.post.PostRepository;
-import perso.renaud.com.myfirstrxapp.data.repository.post.PostRepositoryImpl;
+import perso.renaud.com.myfirstrxapp.data.repository.base_class.Repository;
+import perso.renaud.com.myfirstrxapp.data.repository.user.GenerifiedPostRepositoryImpl;
 import perso.renaud.com.myfirstrxapp.network.Api;
 import perso.renaud.com.myfirstrxapp.presentation.post_detail.PostDetailActivity;
 import perso.renaud.com.myfirstrxapp.presentation.posts_list.viewholders.PostViewHolder;
@@ -52,7 +52,20 @@ public class PostListActivity extends MyActivity {
         counterTextView = (TextView) findViewById(R.id.counter);
 
         final Api.JsonPlaceholderInterface jsonPlaceHolder = Api.getInstance().jsonPlaceholder;
-        final PostRepository postRepository = PostRepositoryImpl.getInstance(jsonPlaceHolder);
+
+
+//        final PostRepository postRepository = PostRepositoryImpl.getInstance(jsonPlaceHolder);
+        final Repository<JSPost> postRepository = GenerifiedPostRepositoryImpl.getInstance(new Api.StandardRest<JSPost>() {
+            @Override
+            public Observable<List<JSPost>> getAll() {
+                return jsonPlaceHolder.posts();
+            }
+
+            @Override
+            public Observable<JSPost> get(long id) {
+                return jsonPlaceHolder.post(id);
+            }
+        });
 
 
         refreshButton.setOnClickListener(new View.OnClickListener() {

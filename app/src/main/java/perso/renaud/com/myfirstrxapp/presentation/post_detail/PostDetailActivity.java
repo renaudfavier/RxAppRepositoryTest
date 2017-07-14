@@ -5,14 +5,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+import java.util.List;
+
+import io.reactivex.Observable;
 import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import perso.renaud.com.myfirstrxapp.R;
 import perso.renaud.com.myfirstrxapp.data.api_objects.JSPost;
-import perso.renaud.com.myfirstrxapp.data.repository.post.PostRepository;
-import perso.renaud.com.myfirstrxapp.data.repository.post.PostRepositoryImpl;
+import perso.renaud.com.myfirstrxapp.data.repository.user.GenerifiedPostRepositoryImpl;
 import perso.renaud.com.myfirstrxapp.network.Api;
 import perso.renaud.com.myfirstrxapp.presentation.posts_list.viewholders.PostViewHolder;
 
@@ -36,7 +38,18 @@ public class PostDetailActivity extends AppCompatActivity {
 
         final Api.JsonPlaceholderInterface jsonPlaceHolder = Api.getInstance().jsonPlaceholder;
 
-        final PostRepository postRepository = PostRepositoryImpl.getInstance(jsonPlaceHolder);
+//        final PostRepositoryImpl postRepository = PostRepositoryImpl.getInstance(jsonPlaceHolder);
+        final GenerifiedPostRepositoryImpl postRepository = GenerifiedPostRepositoryImpl.getInstance(new Api.StandardRest<JSPost>() {
+            @Override
+            public Observable<List<JSPost>> getAll() {
+                return jsonPlaceHolder.posts();
+            }
+
+            @Override
+            public Observable<JSPost> get(long id) {
+                return jsonPlaceHolder.post(id);
+            }
+        });
 
         postRepository.get(postId).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribeWith(new SingleObserver<JSPost>() {
