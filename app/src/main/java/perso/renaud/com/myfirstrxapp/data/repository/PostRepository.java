@@ -3,8 +3,7 @@ package perso.renaud.com.myfirstrxapp.data.repository;
 import java.util.List;
 
 import io.reactivex.Observable;
-import perso.renaud.com.myfirstrxapp.data.api_objects.Post;
-import retrofit2.Response;
+import perso.renaud.com.myfirstrxapp.data.api_objects.JSPost;
 
 /**
  * Created by renaud on 14/03/17.
@@ -12,10 +11,8 @@ import retrofit2.Response;
 
 public interface PostRepository {
 
-    Observable<Response<Post>> get(long id);
+    Observable<JSPost> get(int id);
 
-    Observable<Response<List<Post>>> getAll();
-
-    boolean store(Post post);
+    Observable<List<JSPost>> getAll();
 
 }

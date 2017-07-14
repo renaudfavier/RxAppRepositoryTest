@@ -3,12 +3,14 @@ package perso.renaud.com.myfirstrxapp.network;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.util.List;
+
+import io.reactivex.Observable;
 import okhttp3.OkHttpClient;
-import perso.renaud.com.myfirstrxapp.data.api_objects.Post;
+import perso.renaud.com.myfirstrxapp.data.api_objects.JSPost;
 import perso.renaud.com.myfirstrxapp.network.interceptors.LoggingInterceptor;
-import retrofit2.Call;
 import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
@@ -50,7 +52,7 @@ public class Api {
                 .baseUrl(BASE_URL)
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create(gson))
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
 
         jsonPlaceholder = retrofit.create(JsonPlaceholderInterface.class);
@@ -64,10 +66,10 @@ public class Api {
         //@POST("/api/tokens")
         //Call<TokenResponse> postAuth(@Body AuthJWT args);
 
-        //@GET("/posts")
-        //Observable<List<Post>> posts();
+        @GET("/posts")
+        Observable<List<JSPost>> posts();
 
         @GET("/posts/{id}")
-        Call<Post> post(@Path("id") long id);
+        Observable<JSPost> post(@Path("id") long id);
     }
 }

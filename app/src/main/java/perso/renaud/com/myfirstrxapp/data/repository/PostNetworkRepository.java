@@ -3,9 +3,8 @@ package perso.renaud.com.myfirstrxapp.data.repository;
 import java.util.List;
 
 import io.reactivex.Observable;
-import perso.renaud.com.myfirstrxapp.data.api_objects.Post;
+import perso.renaud.com.myfirstrxapp.data.api_objects.JSPost;
 import perso.renaud.com.myfirstrxapp.network.Api;
-import retrofit2.Response;
 
 /**
  * Created by renaud on 14/03/17.
@@ -23,17 +22,14 @@ public class PostNetworkRepository implements PostRepository {
     }
 
     @Override
-    public Observable<Response<Post>> get(long id) {
-        return null;
+    public Observable<JSPost> get(int id) {
+        return jsonPlaceholder.post(id);
     }
 
     @Override
-    public Observable<Response<List<Post>>> getAll() {
-        return null;
+    public Observable<List<JSPost>> getAll() {
+        Observable<List<JSPost>> obs = jsonPlaceholder.posts();
+        return obs;
     }
 
-    @Override
-    public boolean store(Post post) {
-        return false;
-    }
 }

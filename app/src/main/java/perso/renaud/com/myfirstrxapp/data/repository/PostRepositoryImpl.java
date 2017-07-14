@@ -1,11 +1,13 @@
 package perso.renaud.com.myfirstrxapp.data.repository;
 
+import android.util.Log;
+
 import java.util.List;
 
 import io.reactivex.Observable;
-import perso.renaud.com.myfirstrxapp.data.api_objects.Post;
+import io.reactivex.functions.Consumer;
+import perso.renaud.com.myfirstrxapp.data.api_objects.JSPost;
 import perso.renaud.com.myfirstrxapp.network.Api;
-import retrofit2.Response;
 
 /**
  * Created by renaud on 14/03/17.
@@ -13,31 +15,39 @@ import retrofit2.Response;
 
 public class PostRepositoryImpl implements PostRepository {
 
-    private final Api.JsonPlaceholderInterface jsonPlaceholder;
+    public static final String TAG = "PostRepositoryImpl";
 
-    private final PostRepository cacheRepository;
-    private final PostRepository networkRepository;
+    private final PostCacheRepository cacheRepository;
+    private final PostNetworkRepository networkRepository;
 
     public PostRepositoryImpl(Api.JsonPlaceholderInterface jsonPlaceholder) {
-        this.jsonPlaceholder = jsonPlaceholder;
         cacheRepository = new PostCacheRepository();
         networkRepository = new PostNetworkRepository(jsonPlaceholder);
     }
 
-    @Override
-    public Observable<Response<Post>> get(long id) {
-        Observable<Response<Post>> obs = Observable.concat(cacheRepository.get(id), networkRepository.get(id));
+    //Observable<JSPost> obs = Observable.concat(cacheRepository.get(id), networkRepository.get(id));
 
-        return obs;
-    }
 
     @Override
-    public Observable<Response<List<Post>>> getAll() {
+    public Observable<JSPost> get(int id) {
         return null;
     }
 
     @Override
-    public boolean store(Post post) {
-        return false;
+    public Observable<List<JSPost>> getAll() {
+
+        Log.i(TAG, "getAll()");
+
+        Observable<List<JSPost>> obs = Observable.concat(cacheRepository.getAll(), networkRepository.getAll().doOnNext(new Consumer<List<JSPost>>() {
+            @Override
+            public void accept(List<JSPost> jsPosts) throws Exception {
+                cacheRepository.store(jsPosts);
+            }
+        }));
+
+
+        return obs;
     }
+
+
 }
