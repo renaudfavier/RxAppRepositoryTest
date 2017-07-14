@@ -14,7 +14,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import perso.renaud.com.myfirstrxapp.R;
 import perso.renaud.com.myfirstrxapp.data.api_objects.JSPost;
-import perso.renaud.com.myfirstrxapp.data.repository.user.GenerifiedPostRepositoryImpl;
+import perso.renaud.com.myfirstrxapp.data.repository.post.GenerifiedPostRepositoryImpl;
 import perso.renaud.com.myfirstrxapp.network.Api;
 import perso.renaud.com.myfirstrxapp.presentation.posts_list.viewholders.PostViewHolder;
 

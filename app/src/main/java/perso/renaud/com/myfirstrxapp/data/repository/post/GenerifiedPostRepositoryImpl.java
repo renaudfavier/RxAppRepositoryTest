@@ -1,4 +1,4 @@
-package perso.renaud.com.myfirstrxapp.data.repository.user;
+package perso.renaud.com.myfirstrxapp.data.repository.post;
 
 import perso.renaud.com.myfirstrxapp.data.api_objects.JSPost;
 import perso.renaud.com.myfirstrxapp.data.repository.base_class.RepositoryImpl;

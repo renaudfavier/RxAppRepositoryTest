@@ -22,7 +22,7 @@ import perso.renaud.com.myfirstrxapp.R;
 import perso.renaud.com.myfirstrxapp.ancestors.MyActivity;
 import perso.renaud.com.myfirstrxapp.data.api_objects.JSPost;
 import perso.renaud.com.myfirstrxapp.data.repository.base_class.Repository;
-import perso.renaud.com.myfirstrxapp.data.repository.user.GenerifiedPostRepositoryImpl;
+import perso.renaud.com.myfirstrxapp.data.repository.post.GenerifiedPostRepositoryImpl;
 import perso.renaud.com.myfirstrxapp.network.Api;
 import perso.renaud.com.myfirstrxapp.presentation.post_detail.PostDetailActivity;
 import perso.renaud.com.myfirstrxapp.presentation.posts_list.viewholders.PostViewHolder;

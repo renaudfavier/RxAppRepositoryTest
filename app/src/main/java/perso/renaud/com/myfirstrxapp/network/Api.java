@@ -8,6 +8,7 @@ import java.util.List;
 import io.reactivex.Observable;
 import okhttp3.OkHttpClient;
 import perso.renaud.com.myfirstrxapp.data.api_objects.JSPost;
+import perso.renaud.com.myfirstrxapp.data.api_objects.JSUser;
 import perso.renaud.com.myfirstrxapp.network.interceptors.LoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
@@ -74,5 +75,11 @@ public class Api {
 
         @GET("/posts/{id}")
         Observable<JSPost> post(@Path("id") long id);
+
+        @GET("/posts")
+        Observable<List<JSUser>> users();
+
+        @GET("/posts/{id}")
+        Observable<JSUser> user(@Path("id") long id);
     }
 }
