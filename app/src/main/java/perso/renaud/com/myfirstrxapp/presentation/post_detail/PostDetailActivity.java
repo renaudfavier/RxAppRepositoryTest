@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 
 import java.util.List;
 
-import io.reactivex.Single;
 import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -15,9 +14,7 @@ import io.reactivex.schedulers.Schedulers;
 import perso.renaud.com.myfirstrxapp.R;
 import perso.renaud.com.myfirstrxapp.data.api_objects.JSPost;
 import perso.renaud.com.myfirstrxapp.data.api_objects.JSUser;
-import perso.renaud.com.myfirstrxapp.data.repository.base_class.Repository;
-import perso.renaud.com.myfirstrxapp.data.repository.post.GenerifiedPostRepositoryImpl;
-import perso.renaud.com.myfirstrxapp.data.repository.user.UserRepositoryImpl;
+import perso.renaud.com.myfirstrxapp.data.repository.post.PostRepositoryImpl;
 import perso.renaud.com.myfirstrxapp.network.Api;
 import perso.renaud.com.myfirstrxapp.presentation.posts_list.viewholders.PostViewHolder;
 
@@ -51,16 +48,16 @@ public class PostDetailActivity extends AppCompatActivity {
 
         final Api.JsonPlaceholderInterface jsonPlaceHolder = Api.getInstance().jsonPlaceholder;
 
-//        final PostRepositoryImpl postRepository = PostRepositoryImpl.getInstance(jsonPlaceHolder);
+      final PostRepositoryImpl postRepository = PostRepositoryImpl.getInstance(jsonPlaceHolder);
 
-        final GenerifiedPostRepositoryImpl postRepository = GenerifiedPostRepositoryImpl.getInstance(jsonPlaceHolder);
-        final Repository<JSUser> userRepository = UserRepositoryImpl.getInstance(jsonPlaceHolder);
-
-        Single<JSPost> postSingle = postRepository.get(postId).subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread());
-
-        final Single<List<JSUser>> usersSingle = userRepository.getAll().subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread());
+//        final GenerifiedPostRepositoryImpl postRepository = GenerifiedPostRepositoryImpl.getInstance(jsonPlaceHolder);
+//        final Repository<JSUser> userRepository = UserRepositoryImpl.getInstance(jsonPlaceHolder);
+//
+//        Single<JSPost> postSingle = postRepository.get(postId).subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread());
+//
+//        final Single<List<JSUser>> usersSingle = userRepository.getAll().subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread());
 
 
         postRepository.get(postId).subscribeOn(Schedulers.io())
