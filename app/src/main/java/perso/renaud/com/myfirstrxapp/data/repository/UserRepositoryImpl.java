@@ -1,4 +1,4 @@
-package perso.renaud.com.myfirstrxapp.data.repository.user;
+package perso.renaud.com.myfirstrxapp.data.repository;
 
 import java.util.List;
 

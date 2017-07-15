@@ -11,7 +11,7 @@ import perso.renaud.com.myfirstrxapp.ancestors.IBasePresenter;
 import perso.renaud.com.myfirstrxapp.ancestors.PresentedActivity;
 import perso.renaud.com.myfirstrxapp.data.api_objects.JSPost;
 import perso.renaud.com.myfirstrxapp.data.repository.base_class.Repository;
-import perso.renaud.com.myfirstrxapp.data.repository.post.GenerifiedPostRepositoryImpl;
+import perso.renaud.com.myfirstrxapp.data.repository.GenerifiedPostRepositoryImpl;
 import perso.renaud.com.myfirstrxapp.network.Api;
 import perso.renaud.com.myfirstrxapp.presentation.post_detail.contracts.PostDetailContract;
 import perso.renaud.com.myfirstrxapp.presentation.post_detail.model.PostDetailData;

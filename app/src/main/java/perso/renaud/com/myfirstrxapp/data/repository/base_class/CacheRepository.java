@@ -6,8 +6,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import io.reactivex.Observable;
-import perso.renaud.com.myfirstrxapp.data.api_objects.JSPost;
-import perso.renaud.com.myfirstrxapp.data.helper.Ephemerical;
 
 /**
  * Created by renaud on 14/03/17.
