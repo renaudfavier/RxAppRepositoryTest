@@ -2,10 +2,8 @@ package perso.renaud.com.myfirstrxapp.network;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
-import java.util.List;
-
 import io.reactivex.Observable;
+import java.util.List;
 import okhttp3.OkHttpClient;
 import perso.renaud.com.myfirstrxapp.data.api_objects.JSPost;
 import perso.renaud.com.myfirstrxapp.data.api_objects.JSUser;
@@ -38,28 +36,21 @@ public class Api {
 
     public JsonPlaceholderInterface jsonPlaceholder;
 
-
     private Api() {
 
         GsonBuilder gsonBuilder = new GsonBuilder();
         Gson gson = gsonBuilder.create();
 
+        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(new LoggingInterceptor()).build();
 
-        OkHttpClient client = new OkHttpClient.Builder()
-                .addInterceptor(new LoggingInterceptor())
-                .build();
-
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(BASE_URL)
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
 
         jsonPlaceholder = retrofit.create(JsonPlaceholderInterface.class);
-
     }
-
 
     public interface StandardRest<T> {
         Observable<List<T>> getAll();
@@ -67,19 +58,14 @@ public class Api {
         Observable<T> get(long id);
     }
 
-
     public interface JsonPlaceholderInterface {
 
-        @GET("/posts")
-        Observable<List<JSPost>> posts();
+        @GET("/posts") Observable<List<JSPost>> posts();
 
-        @GET("/posts/{id}")
-        Observable<JSPost> post(@Path("id") long id);
+        @GET("/posts/{id}") Observable<JSPost> post(@Path("id") long id);
 
-        @GET("/posts")
-        Observable<List<JSUser>> users();
+        @GET("/users") Observable<List<JSUser>> users();
 
-        @GET("/posts/{id}")
-        Observable<JSUser> user(@Path("id") long id);
+        @GET("/users/{id}") Observable<JSUser> user(@Path("id") long id);
     }
 }

@@ -1,12 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="perso.renaud.com.myfirstrxapp.presentation.post_detail.PostDetailActivity">
+    android:orientation="vertical"
+    tools:context="perso.renaud.com.myfirstrxapp.presentation.post_detail.view.PostDetailActivity"
+    >
 
-    <include android:id="@+id/item" layout="@layout/listitem_post"/>
+  <TextView
+      android:id="@+id/title"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center"
+      android:layout_margin="20dp"
+      tools:text="Marie de la croute"
+      style="@style/TextAppearance.AppCompat.Title"
+      />
 
 
+  <TextView
+      android:id="@+id/body"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center"
+      android:layout_marginBottom="5dp"
+      tools:text="Titre de l'article"
+      />
 
-</RelativeLayout>
+
+</LinearLayout>
